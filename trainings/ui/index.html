@@ -1,0 +1,68 @@
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Cognizant Employee Training Course</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <script src="app.js"></script>
+   </head>
+   <body>
+      <div ng-app = "myApp" class = "container" style="width:550px">
+         <div ng-controller = "EmployeeController">
+            <div style="text-align:center;color:black" ng-if="!isNewEmployeePage">
+               <h3><b>Add Employee for Training</b></h3>
+            </div>
+			<div style="text-align:center;color:black" ng-if="isNewEmployeePage">
+               <h3><b>Read only View of Employees</b></h3>
+            </div>
+            <div align="right">
+               <a href="#" ng-click="gotToEmployeeList()">{{title}}</a>
+            </div>
+            <form role = "form" class="well" ng-hide="isNewEmployeePage">
+               <div class = "form-group">
+                  <label for = "name"> Full Name:  </label>
+                  <input type = "text" id = "name" class = "form-control" placeholder = "Enter Name " ng-model = "newemployee.name">
+               </div>
+               <div class = "form-group">
+                  <label for = "email"> Email:  </label>
+                  <input type = "email" id = "email" class = "form-control" placeholder = "Enter Email " ng-model = "newemployee.email">
+               </div>
+               <div class = "form-group">
+                  <label for = "phone"> Phone:  </label>
+                  <input type = "text" id = "phone" class = "form-control" placeholder = "Enter Phone " ng-model = "newemployee.phone">
+               </div>
+               <br>
+               <input type="hidden" ng-model="newemployee.id">
+               <input type="button" class="btn btn-primary" ng-click="saveEmployee()" class="btn btn-primary" value = "Submit">
+               <input type="button" class="btn btn-primary" ng-click="cancel()" class="btn btn-primary" value = "Cancel">
+            </form>
+            <div>
+               <h4><b>Registered Employees for Training</b></h4>
+               <table ng-if="employees.length" class = "table table-striped table-bordered table-hover">
+                  <thead>
+                     <tr class = "info">
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th ng-if="!isNewEmployeePage">Action</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat = "employee in employees">
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.phone }}</td>
+                        <td ng-if="!isNewEmployeePage">
+                           <a href="#" ng-click="edit(employee.id)" role = "button" class = "btn btn-info">edit</a> &nbsp;
+                           <a href="#" ng-click="delete(employee.id)" role = "button" class = "btn btn-danger">delete</a>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <div ng-hide="employees.length > 0">No Users Found</div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
